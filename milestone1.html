@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Milestone 1 - JSON Book Viewer</title>
+    <!--The CSS design of the milestone1.-->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <!--The begining of constructing the body of the webpage and connection the JSON book display.-->
+  <body>
+    <h1>Milestone 1: Display Book Data from JSON</h1>
+    <p><a href="index.html">← Back to Home</a></p>
+
+    <h2>Single Book from google-books-book.json</h2>
+    <div id="single-book"></div>
+
+    <h2>Book List from google-books-search.json</h2>
+    <div id="book-list"></div>
+
+    <!--This import JavaScript library-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        //Searches for single JSON file to read and import all data from the single book file
+        $.getJSON("google-books-book.json", function (data) {
+          const book = data.volumeInfo;
+          const html = `
+          <div class="book">
+            ${
+              book.imageLinks?.thumbnail
+                ? `<img src="${book.imageLinks.thumbnail}" alt="Book Cover">`
+                : ""
+            }
+            <div class="book-details">
+              <h3>${book.title}</h3>
+              <p><strong>Author:</strong> ${
+                book.authors?.join(", ") || "N/A"
+              }</p>
+              <p>${book.description || "No description available."}</p>
+              <p><a href="${book.infoLink}" target="_blank">More Info</a></p>
+            </div>
+          </div>
+        `;
+          $("#single-book").html(html);
+        });
+
+        // Searches for the file with multiple books and grabs all the data from the file and loops through each book and gets all the information of the book.
+        $.getJSON("google-books-search.json", function (data) {
+          const items = data.items;
+          items.forEach(function (item) {
+            const info = item.volumeInfo;
+            const html = `
+            <div class="book-list-item">
+              ${
+                info.imageLinks?.thumbnail
+                  ? `<img src="${info.imageLinks.thumbnail}" alt="Book Cover">`
+                  : ""
+              }
+              <div class="book-details">
+                <h3>${info.title}</h3>
+                <p><strong>Author:</strong> ${
+                  info.authors?.join(", ") || "Unknown"
+                }</p>
+                <p>${info.description || "No description."}</p>
+                <p><a href="${info.infoLink}" target="_blank">More Info</a></p>
+              </div>
+            </div>
+          `;
+            $("#book-list").append(html);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
