@@ -3,7 +3,7 @@ $(document).ready(function () {
         $('#bookshelf').empty();
 
         if (!data.items || data.items.length === 0) {
-            $('#bookshelf').html("<p>No books found in your bookshelf.</p>");
+            $('#bookshelf').html("<p>No books found.</p>");
             return;
         }
 
@@ -21,8 +21,7 @@ $(document).ready(function () {
             `;
             $('#bookshelf').append(bookHTML);
         });
-    }).fail(function (jqXHR, textStatus, error) {
-        $('#bookshelf').html("<p>Failed to load local bookshelf file.</p>");
-        console.error("Error loading local JSON:", textStatus, error);
+    }).fail(function () {
+        $('#bookshelf').html("<p>Failed to load bookshelf data. Make sure books.json is uploaded to GitHub.</p>");
     });
 });
