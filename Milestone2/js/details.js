@@ -8,7 +8,7 @@ $(document).ready(function () {
         return;
     }
 
-    const url = `https://www.googleapis.com/books/v1/volumes/${bookId}`;
+    const url = `js/books.json`;
 
     $.getJSON(url, function (data) {
         const info = data.volumeInfo;
