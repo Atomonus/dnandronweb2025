@@ -4,27 +4,45 @@
       "id": "book1",
       "volumeInfo": {
         "title": "Popular Mechanics",
+        "authors": ["Popular Mechanics Editors"],
+        "publisher": "Hearst",
+        "publishedDate": "2023-01-01",
+        "pageCount": 112,
+        "description": "A monthly magazine of science and technology.",
         "imageLinks": {
           "thumbnail": "https://raw.githubusercontent.com/Atomonus/dnandronweb2025/main/Milestone2/js/mecha.jpg"
-        }
+        },
+        "previewLink": "https://books.google.com/books?id=RdMDAAAAMBAJ"
       }
     },
     {
       "id": "book2",
       "volumeInfo": {
         "title": "Write Modern Web Apps with the MEAN Stack",
+        "authors": ["Jeff Dickey"],
+        "publisher": "O'Reilly Media, Inc.",
+        "publishedDate": "2014-06-26",
+        "pageCount": 98,
+        "description": "Build powerful full-stack web applications using MongoDB, Express, AngularJS, and Node.js.",
         "imageLinks": {
           "thumbnail": "https://raw.githubusercontent.com/Atomonus/dnandronweb2025/main/Milestone2/js/write.jpg"
-        }
+        },
+        "previewLink": "https://books.google.com/books?id=xeVfAwAAQBAJ"
       }
     },
     {
       "id": "book3",
       "volumeInfo": {
         "title": "How to Code in Python 3",
+        "authors": ["Lisa Tagliaferri"],
+        "publisher": "DigitalOcean",
+        "publishedDate": "2018-10-01",
+        "pageCount": 252,
+        "description": "A comprehensive guide to programming in Python 3. Learn the syntax, structure, and powerful features of Python.",
         "imageLinks": {
           "thumbnail": "https://raw.githubusercontent.com/Atomonus/dnandronweb2025/main/Milestone2/js/python.jpg"
-        }
+        },
+        "previewLink": "https://books.google.com/books/about/How_To_Code_in_Python_3.html?id=Zd5xEAAAQBAJ"
       }
     }
   ]
