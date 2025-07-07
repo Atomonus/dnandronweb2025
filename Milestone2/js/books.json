@@ -1,0 +1,31 @@
+{
+  "items": [
+    {
+      "id": "book1",
+      "volumeInfo": {
+        "title": "Popular Mechanics",
+        "imageLinks": {
+          "thumbnail": "https://via.placeholder.com/128x200?text=Popular+Mechanics"
+        }
+      }
+    },
+    {
+      "id": "book2",
+      "volumeInfo": {
+        "title": "Write Modern Web Apps with the MEAN Stack",
+        "imageLinks": {
+          "thumbnail": "https://via.placeholder.com/128x200?text=MEAN+Stack"
+        }
+      }
+    },
+    {
+      "id": "book3",
+      "volumeInfo": {
+        "title": "How to Code in Python 3",
+        "imageLinks": {
+          "thumbnail": "https://via.placeholder.com/128x200?text=Python+3"
+        }
+      }
+    }
+  ]
+}
