@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = urlParams.get('id');
@@ -11,13 +10,20 @@ $(document).ready(function () {
     const url = `js/books.json`;
 
     $.getJSON(url, function (data) {
-        const info = data.volumeInfo;
+        const book = data.items.find(item => item.id === bookId);
+
+        if (!book) {
+            $('#bookDetails').html("<p>Book not found.</p>");
+            return;
+        }
+
+        const info = book.volumeInfo;
         const title = info.title || "No Title";
         const authors = info.authors ? info.authors.join(", ") : "Unknown Author";
         const publisher = info.publisher || "Unknown Publisher";
         const description = info.description || "No description available.";
         const thumbnail = info.imageLinks?.thumbnail || "";
-        const previewLink = info.previewLink || "";
+        const previewLink = info.previewLink || "#";
         const pageCount = info.pageCount || "N/A";
         const publishedDate = info.publishedDate || "N/A";
 
@@ -37,3 +43,4 @@ $(document).ready(function () {
         $('#bookDetails').html("<p>Failed to load book information.</p>");
     });
 });
+
