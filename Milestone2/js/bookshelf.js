@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $.getJSON("books.json", function (data) {
+    $.getJSON("js/books.json", function (data) {
         $('#bookshelf').empty();
 
         if (!data.items || data.items.length === 0) {
