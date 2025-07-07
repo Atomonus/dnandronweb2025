@@ -1,14 +1,9 @@
 $(document).ready(function () {
-    // Your Google Books user ID and bookshelf ID (Favorites)
-    const userId = "115117675132723452396";
-    const bookshelfId = "0";
-    const url = `https://www.googleapis.com/books/v1/users/${userId}/bookshelves/${bookshelfId}/volumes?maxResults=20`;
-
-    $.getJSON(url, function (data) {
+    $.getJSON("books.json", function (data) {
         $('#bookshelf').empty();
 
         if (!data.items || data.items.length === 0) {
-            $('#bookshelf').html("<p>No books found in your Favorites bookshelf. Please add books at books.google.com.</p>");
+            $('#bookshelf').html("<p>No books found in your bookshelf.</p>");
             return;
         }
 
@@ -27,7 +22,7 @@ $(document).ready(function () {
             $('#bookshelf').append(bookHTML);
         });
     }).fail(function (jqXHR, textStatus, error) {
-        $('#bookshelf').html("<p>Failed to load bookshelf data. Error: " + textStatus + "</p>");
-        console.error("API Error:", textStatus, error);
+        $('#bookshelf').html("<p>Failed to load local bookshelf file.</p>");
+        console.error("Error loading local JSON:", textStatus, error);
     });
 });
