@@ -5,7 +5,7 @@
       "volumeInfo": {
         "title": "Popular Mechanics",
         "imageLinks": {
-          "thumbnail": "mecha.jpg"
+          "thumbnail": "https://github.com/Atomonus/dnandronweb2025/blob/main/Milestone2/js/mecha.jpg"
         }
       }
     },
