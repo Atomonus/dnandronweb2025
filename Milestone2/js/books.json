@@ -8,7 +8,7 @@
         "publisher": "Hearst",
         "publishedDate": "2023-01-01",
         "pageCount": 112,
-        "description": "A monthly magazine of science and technology.",
+        "description": "Popular Mechanics inspires, instructs and influences readers to help them master the modern world.",
         "imageLinks": {
           "thumbnail": "https://raw.githubusercontent.com/Atomonus/dnandronweb2025/main/Milestone2/js/mecha.jpg"
         },
@@ -23,7 +23,7 @@
         "publisher": "O'Reilly Media, Inc.",
         "publishedDate": "2014-06-26",
         "pageCount": 98,
-        "description": "Build powerful full-stack web applications using MongoDB, Express, AngularJS, and Node.js.",
+        "description": "This book, written by a practicing MEAN developer, will take a holistic approach to using the MEAN JavaScript platform for creating modern web applications and lay out how to use the MEAN (Mongo, Express,AngularJS,and Node.js)",
         "imageLinks": {
           "thumbnail": "https://raw.githubusercontent.com/Atomonus/dnandronweb2025/main/Milestone2/js/write.jpg"
         },
@@ -38,7 +38,7 @@
         "publisher": "DigitalOcean",
         "publishedDate": "2018-10-01",
         "pageCount": 252,
-        "description": "A comprehensive guide to programming in Python 3. Learn the syntax, structure, and powerful features of Python.",
+        "description": "A guide to programming in Python 3 that helps developers to learn the syntax, structure, and powerful features in Python.",
         "imageLinks": {
           "thumbnail": "https://raw.githubusercontent.com/Atomonus/dnandronweb2025/main/Milestone2/js/python.jpg"
         },
