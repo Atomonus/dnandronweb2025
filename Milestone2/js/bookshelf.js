@@ -22,6 +22,6 @@ $(document).ready(function () {
             $('#bookshelf').append(bookHTML);
         });
     }).fail(function () {
-        $('#bookshelf').html("<p>Failed to load bookshelf data. Make sure books.json is uploaded to GitHub.</p>");
+        $('#bookshelf').html("<p>Failed to load bookshelf.</p>");
     });
 });
