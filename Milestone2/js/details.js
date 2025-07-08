@@ -3,7 +3,7 @@ $(document).ready(function () {
     const bookId = urlParams.get('id');
 
     if (!bookId) {
-        $('#bookDetails').html("<p>No book ID provided in the URL.</p>");
+        $('#bookDetails').html("<p>No book ID.</p>");
         return;
     }
 
