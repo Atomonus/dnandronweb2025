@@ -3,27 +3,40 @@ $(document).ready(function () {
     const bookId = urlParams.get('id');
 
     if (!bookId) {
-        $('#bookDetails').html("<p>No book ID.</p>");
+        $('#bookDetails').html("<p>No book ID provided in the URL.</p>");
         return;
     }
 
-    const url = `js/books.json`;
+    const localUrl = 'js/books.json';
 
-    $.getJSON(url, function (data) {
+    $.getJSON(localUrl, function (data) {
         const book = data.items.find(item => item.id === bookId);
 
-        if (!book) {
-            $('#bookDetails').html("<p>Book not found.</p>");
-            return;
+        if (book) {
+            renderBookDetails(book.volumeInfo);
+        } else {
+            const googleApiUrl = `https://www.googleapis.com/books/v1/volumes/${bookId}`;
+            $.getJSON(googleApiUrl, function (googleData) {
+                if (googleData.volumeInfo) {
+                    renderBookDetails(googleData.volumeInfo);
+                } else {
+                    $('#bookDetails').html("<p>Book not found.</p>");
+                }
+            }).fail(function () {
+                $('#bookDetails').html("<p>Book not found.</p>");
+            });
         }
+    }).fail(function () {
+        $('#bookDetails').html("<p>Failed to load book information.</p>");
+    });
 
-        const info = book.volumeInfo;
+    function renderBookDetails(info) {
         const title = info.title || "No Title";
         const authors = info.authors ? info.authors.join(", ") : "Unknown Author";
         const publisher = info.publisher || "Unknown Publisher";
         const description = info.description || "No description available.";
         const thumbnail = info.imageLinks?.thumbnail || "";
-        const previewLink = info.previewLink || "#";
+        const previewLink = info.previewLink || "";
         const pageCount = info.pageCount || "N/A";
         const publishedDate = info.publishedDate || "N/A";
 
@@ -35,12 +48,10 @@ $(document).ready(function () {
             <p><strong>Published Date:</strong> ${publishedDate}</p>
             <p><strong>Page Count:</strong> ${pageCount}</p>
             <p><strong>Description:</strong> ${description}</p>
-            <p><a href="${previewLink}" target="_blank">Preview on Google Books</a></p>
+            ${previewLink ? `<p><a href="${previewLink}" target="_blank">Preview on Google Books</a></p>` : ""}
         `;
 
         $('#bookDetails').html(detailHTML);
-    }).fail(function () {
-        $('#bookDetails').html("<p>Failed to load book information.</p>");
-    });
+    }
 });
 
