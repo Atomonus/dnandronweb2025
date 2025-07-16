@@ -13,16 +13,19 @@ $(document).ready(function () {
     }
   });
 
-  $('#toggleView').click(function () {
-    isGridView = !isGridView;
-    $('#toggleView').text(isGridView ? 'Switch to List View' : 'Switch to Grid View');
+  $('#gridView').click(function () {
+    isGridView = true;
+    displayResults(currentSearchResults);
+  });
+
+  $('#listView').click(function () {
+    isGridView = false;
     displayResults(currentSearchResults);
   });
 
   function searchBooks(query, page) {
     const startIndex = (page - 1) * maxResults;
     const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&startIndex=${startIndex}&maxResults=${maxResults}`;
-
     $.getJSON(url, function (data) {
       currentSearchResults = data.items || [];
       displayResults(currentSearchResults);
@@ -65,6 +68,16 @@ $(document).ready(function () {
       e.preventDefault();
       const bookId = $(this).data('id');
       loadBookDetails(bookId);
+    });
+
+    $('.saveBtn').click(function (e) {
+      e.stopPropagation();
+      const bookId = $(this).data("id");
+      const book = currentSearchResults.find(b => b.id === bookId);
+      if (book && !bookshelf.some(b => b.id === book.id)) {
+        bookshelf.push(book);
+        loadBookshelf();
+      }
     });
   }
 
@@ -129,16 +142,6 @@ $(document).ready(function () {
       loadBookDetails(bookId);
     });
   }
-
-  $(document).on("click", ".saveBtn", function (e) {
-    e.stopPropagation();
-    const bookId = $(this).data("id");
-    const book = currentSearchResults.find(b => b.id === bookId);
-    if (book && !bookshelf.some(b => b.id === book.id)) {
-      bookshelf.push(book);
-      loadBookshelf();
-    }
-  });
 
   loadBookshelf();
 });
