@@ -82,3 +82,17 @@
         padding: 10px;
         border-radius: 8px;
       }
+      #searchResults.grid .book-item,
+      #bookshelf.grid .book-item {
+       display: inline-block;
+       width: 200px;
+       margin: 10px;
+      }
+
+    #searchResults.list .book-item,
+    #bookshelf.list .book-item {
+     display: flex;
+     align-items: center;
+     margin: 10px 0;
+     gap: 10px;
+    }
