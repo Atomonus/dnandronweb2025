@@ -1,0 +1,84 @@
+      body {
+        font-family: Arial, sans-serif;
+        background-color: lightblue;
+        margin: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        color: navy;
+      }
+
+      h2 {
+        color: darkblue;
+      }
+
+      a {
+        color: darkred;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .section {
+        background-color: white;
+        padding: 15px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+      }
+      .results, .bookshelf {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;.s
+      }
+      .book-item {
+        background: white;
+        padding: 10px;
+        border-radius: 8px;
+        width: 150px;
+        text-align: center;
+      }
+      .book-item img {
+        max-width: 100px;
+        height: auto;
+      }
+      .details img {
+        max-width: 150px;
+        float: left;
+        margin-right: 20px;
+      }
+      #pagination {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      #pagination button {
+         margin: 0 5px;
+      } 
+      .saveBtn {
+        background-color: #808080;
+        color: white;
+        border: none;
+        padding: 5px 8px;
+        border-radius: 4px;
+        margin-top: 5px;
+        cursor: pointer;
+      }
+      .saveBtn:hover {
+         background-color: #131a95;
+      }
+      .main-layout {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+      }
+      .results {
+         flex: 2;
+      }
+      .details {
+        flex: 1;
+        background: #f9f9f9;
+        padding: 10px;
+        border-radius: 8px;
+      }
