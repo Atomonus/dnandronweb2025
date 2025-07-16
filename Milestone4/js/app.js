@@ -76,6 +76,21 @@ $(document).ready(function () {
       const book = currentSearchResults.find(b => b.id === bookId);
       if (book && !bookshelf.some(b => b.id === book.id)) {
         bookshelf.push(book);
+
+    $('#showSearch').click(function () {
+  $('#searchSection').show();
+  $('#bookshelfSection').hide();
+  $('#showSearch').addClass('active');
+  $('#showShelf').removeClass('active');
+});
+
+$('#showShelf').click(function () {
+  $('#searchSection').hide();
+  $('#bookshelfSection').show();
+  $('#showShelf').addClass('active');
+  $('#showSearch').removeClass('active');
+  loadBookshelf();
+});
         loadBookshelf();
       }
     });
