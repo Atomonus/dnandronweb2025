@@ -4,6 +4,7 @@ $(document).ready(function () {
   let currentPage = 1;
   let currentSearchResults = [];
   let bookshelf = [];
+  let isGridView = true;
 
   $('#searchBtn').click(function () {
     currentQuery = $('#searchInput').val().trim();
@@ -11,6 +12,13 @@ $(document).ready(function () {
       searchBooks(currentQuery, 1);
     }
   });
+
+  $('#toggleView').click(function () {
+    isGridView = !isGridView;
+    $('#toggleView').text(isGridView ? 'Switch to List View' : 'Switch to Grid View');
+    displayResults(currentSearchResults);
+  });
+
   function searchBooks(query, page) {
     const startIndex = (page - 1) * maxResults;
     const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&startIndex=${startIndex}&maxResults=${maxResults}`;
@@ -21,21 +29,35 @@ $(document).ready(function () {
       createPagination(Math.ceil(data.totalItems / maxResults), page);
     });
   }
+
   function displayResults(books) {
-    $('#searchResults').empty();
+    const layoutClass = isGridView ? 'grid' : 'list';
+    $('#searchResults').removeClass('grid list').addClass(layoutClass).empty();
+
     books.forEach(book => {
       const info = book.volumeInfo;
       const bookId = book.id;
       const title = info.title || "No Title";
       const thumbnail = info.imageLinks?.thumbnail || "https://via.placeholder.com/128x200?text=No+Cover";
 
-      const bookHTML = `
-        <div class="book-item">
-          <img src="${thumbnail}" alt="${title}" />
-          <p><a href="#" class="book-link" data-id="${bookId}">${title}</a></p>
-          <button class="saveBtn" data-id="${bookId}">Save to Bookshelf</button>
-        </div>
-      `;
+      const bookHTML = isGridView
+        ? `
+          <div class="book-item grid-item">
+            <img src="${thumbnail}" alt="${title}" />
+            <p><a href="#" class="book-link" data-id="${bookId}">${title}</a></p>
+            <button class="saveBtn" data-id="${bookId}">Save to Bookshelf</button>
+          </div>
+        `
+        : `
+          <div class="book-item list-item" style="display: flex; align-items: center; gap: 10px;">
+            <img src="${thumbnail}" alt="${title}" style="width: 80px; height: auto;" />
+            <div>
+              <p><a href="#" class="book-link" data-id="${bookId}">${title}</a></p>
+              <button class="saveBtn" data-id="${bookId}">Save to Bookshelf</button>
+            </div>
+          </div>
+        `;
+
       $('#searchResults').append(bookHTML);
     });
 
@@ -56,6 +78,7 @@ $(document).ready(function () {
       $('#pagination').append(button);
     }
   }
+
   function loadBookDetails(bookId) {
     const url = `https://www.googleapis.com/books/v1/volumes/${bookId}`;
     $.getJSON(url, function (data) {
@@ -82,6 +105,7 @@ $(document).ready(function () {
       $('#bookDetails').html(detailHTML);
     });
   }
+
   function loadBookshelf() {
     $('#bookshelf').empty();
     bookshelf.forEach(book => {
@@ -105,6 +129,7 @@ $(document).ready(function () {
       loadBookDetails(bookId);
     });
   }
+
   $(document).on("click", ".saveBtn", function (e) {
     e.stopPropagation();
     const bookId = $(this).data("id");
@@ -114,5 +139,6 @@ $(document).ready(function () {
       loadBookshelf();
     }
   });
+
   loadBookshelf();
 });
