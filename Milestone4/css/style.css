@@ -96,3 +96,8 @@
      margin: 10px 0;
      gap: 10px;
     }
+    button.active {
+     background-color: #333;
+     color: #fff;
+     border-radius: 5px;
+    }
