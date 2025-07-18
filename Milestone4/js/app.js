@@ -6,12 +6,19 @@ $(document).ready(function () {
   let bookshelf = [];
   let isGridView = true;
 
-  $('#searchBtn').click(function () {
-    currentQuery = $('#searchInput').val().trim();
-    if (currentQuery) {
-      searchBooks(currentQuery, 1);
-    }
-  });
+ $('#searchBtn').click(function () {
+  currentQuery = $('#searchInput').val().trim();
+  if (currentQuery) {
+    // Switch to search view
+    $('#searchSection').show();
+    $('#bookshelfSection').hide();
+    $('#showSearch').addClass('active');
+    $('#showShelf').removeClass('active');
+
+    // Perform search
+    searchBooks(currentQuery, 1);
+  }
+});
 
   $('#gridView').click(function () {
   isGridView = true;
