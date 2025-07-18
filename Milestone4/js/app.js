@@ -6,19 +6,26 @@ $(document).ready(function () {
   let bookshelf = [];
   let isGridView = true;
 
- $('#searchBtn').click(function () {
+$('#searchBtn').click(function () {
   currentQuery = $('#searchInput').val().trim();
+
   if (currentQuery) {
-    // Switch to search view
+    // Switch to Search section view
     $('#searchSection').show();
     $('#bookshelfSection').hide();
     $('#showSearch').addClass('active');
     $('#showShelf').removeClass('active');
 
-    // Perform search
+    // Clear previous UI states
+    $('#searchResults').empty();
+    $('#pagination').empty();
+    $('#bookDetails').empty();
+
+    // Perform new search
     searchBooks(currentQuery, 1);
   }
 });
+
 
   $('#gridView').click(function () {
   isGridView = true;
