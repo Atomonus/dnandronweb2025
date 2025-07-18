@@ -6,7 +6,7 @@ $(document).ready(function () {
   let bookshelf = [];
   let isGridView = true;
 
-  // 🔍 Search Button
+  
   $('#searchBtn').click(function () {
     currentQuery = $('#searchInput').val().trim();
     if (currentQuery) {
@@ -21,7 +21,7 @@ $(document).ready(function () {
     }
   });
 
-  // 📚 Toggle Section Buttons
+  
   $('#showSearch').click(function () {
     $('#searchSection').show();
     $('#bookshelfSection').hide();
@@ -37,11 +37,11 @@ $(document).ready(function () {
     loadBookshelf();
   });
 
-  // 🟦 View Mode Toggle Buttons
+  
   $('#gridView').click(() => updateViewMode(true));
   $('#listView').click(() => updateViewMode(false));
 
-  // 🔁 Update View (Grid/List)
+  
   function updateViewMode(grid) {
     isGridView = grid;
     $('#gridView').toggleClass('active', grid);
@@ -55,7 +55,7 @@ $(document).ready(function () {
     }
   }
 
-  // 🔍 Fetch books from Google Books API
+  
   function searchBooks(query, page) {
     const startIndex = (page - 1) * maxResults;
     const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&startIndex=${startIndex}&maxResults=${maxResults}`;
@@ -66,7 +66,7 @@ $(document).ready(function () {
     });
   }
 
-  // 📄 Display Search Results
+  
   function displayResults(books) {
     const layoutClass = isGridView ? 'grid' : 'list';
     $('#searchResults').removeClass('grid list').addClass(layoutClass).empty();
@@ -119,7 +119,7 @@ $(document).ready(function () {
     });
   }
 
-  // 🔢 Pagination Controls
+  
   function createPagination(totalPages, currentPage) {
     $('#pagination').empty();
     for (let i = 1; i <= Math.min(totalPages, 5); i++) {
@@ -131,7 +131,7 @@ $(document).ready(function () {
     }
   }
 
-  // 📖 Book Detail Panel
+  
   function loadBookDetails(bookId) {
     const url = `https://www.googleapis.com/books/v1/volumes/${bookId}`;
     $.getJSON(url, function (data) {
@@ -159,7 +159,7 @@ $(document).ready(function () {
     });
   }
 
-  // 📚 Bookshelf Section Renderer
+  
   function loadBookshelf() {
     const layoutClass = isGridView ? 'grid' : 'list';
     $('#bookshelf').removeClass('grid list').addClass(layoutClass).empty();
@@ -198,7 +198,6 @@ $(document).ready(function () {
     });
   }
 
-  // 📥 Initial load
   loadBookshelf();
 });
 
