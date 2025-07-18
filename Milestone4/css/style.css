@@ -1,103 +1,118 @@
-      body {
-        font-family: Arial, sans-serif;
-        background-color: lightblue;
-        margin: 20px;
-      }
+body {
+  font-family: Arial, sans-serif;
+  background-color: lightblue;
+  margin: 20px;
+}
 
-      h1 {
-        text-align: center;
-        color: navy;
-      }
+h1 {
+  text-align: center;
+  color: navy;
+}
 
-      h2 {
-        color: darkblue;
-      }
+h2 {
+  color: darkblue;
+}
 
-      a {
-        color: darkred;
-        text-decoration: none;
-      }
+a {
+  color: darkred;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
 
-      a:hover {
-        text-decoration: underline;
-      }
+.section {
+  background-color: white;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+}
 
-      .section {
-        background-color: white;
-        padding: 15px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-      }
-      .results, .bookshelf {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;.s
-      }
-      .book-item {
-        background: white;
-        padding: 10px;
-        border-radius: 8px;
-        width: 150px;
-        text-align: center;
-      }
-      .book-item img {
-        max-width: 100px;
-        height: auto;
-      }
-      .details img {
-        max-width: 150px;
-        float: left;
-        margin-right: 20px;
-      }
-      #pagination {
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      #pagination button {
-         margin: 0 5px;
-      } 
-      .saveBtn {
-        background-color: #808080;
-        color: white;
-        border: none;
-        padding: 5px 8px;
-        border-radius: 4px;
-        margin-top: 5px;
-        cursor: pointer;
-      }
-      .saveBtn:hover {
-         background-color: #131a95;
-      }
-      .main-layout {
-        display: flex;
-        gap: 20px;
-        align-items: flex-start;
-      }
-      .results {
-         flex: 2;
-      }
-      .details {
-        flex: 1;
-        background: #f9f9f9;
-        padding: 10px;
-        border-radius: 8px;
-      }
-      #searchResults.grid .book-item,
-      #bookshelf.grid .book-item {
-       display: inline-block;
-       width: 200px;
-       margin: 10px;
-      }
+.results, .bookshelf {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
 
-    #searchResults.list .book-item,
-    #bookshelf.list .book-item {
-     display: flex;
-     align-items: center;
-     margin: 10px 0;
-     gap: 10px;
-    }
-    button.active {
-     background-color: #333;
-     color: #fff;
-     border-radius: 5px;
-    }
+.book-item {
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  width: 150px;
+  text-align: center;
+}
+.book-item img {
+  max-width: 100%;
+  height: auto;
+}
+
+.details img {
+  max-width: 150px;
+  float: left;
+  margin-right: 20px;
+}
+
+#pagination {
+  text-align: center;
+  margin-bottom: 20px;
+}
+#pagination button {
+  margin: 0 5px;
+}
+
+.saveBtn {
+  background-color: #808080;
+  color: white;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 4px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+.saveBtn:hover {
+  background-color: #131a95;
+}
+
+.main-layout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.results {
+  flex: 2;
+}
+.details {
+  flex: 1;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+#searchResults.grid .book-item,
+#bookshelf.grid .book-item {
+  display: inline-block;
+  width: 200px;
+  margin: 10px;
+}
+
+#searchResults.list .book-item,
+#bookshelf.list .book-item {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f0f8ff;
+  border-radius: 6px;
+}
+#searchResults.list .book-item img,
+#bookshelf.list .book-item img {
+  width: 80px;
+  height: auto;
+}
+
+button.active {
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+}
