@@ -27,21 +27,23 @@
 </div>
       </section>
 
-   <section class="tabs">
+  <section class="tabs">
+  <button id="showSearch" class="active">Search</button>
   <button id="showShelf">My Bookshelf</button>
 </section>
-
       <div id="searchHistory"></div>
 
       <main>
         <div id="searchSection">
-          <div id="searchResults" class="grid"></div>
+         <div class="main-layout">
+  <div id="searchResults" class="results grid"></div>
+  <div id="bookDetails" class="details"></div>
+</div>
           <div id="pagination"></div>
         </div>
         <div id="bookshelfSection" style="display: none">
           <div id="bookshelf" class="grid"></div>
         </div>
-        <div id="bookDetails"></div>
       </main>
 
       <!-- Mustache Templates -->
