@@ -5,32 +5,57 @@ $(document).ready(function () {
   let currentSearchResults = [];
   let bookshelf = [];
   let isGridView = true;
-$('#searchBtn').click(function () {
-  currentQuery = $('#searchInput').val().trim();
-  if (currentQuery) {
-    // Switch to Search section view
+
+  // 🔍 Search Button
+  $('#searchBtn').click(function () {
+    currentQuery = $('#searchInput').val().trim();
+    if (currentQuery) {
+      $('#searchSection').show();
+      $('#bookshelfSection').hide();
+      $('#showSearch').addClass('active');
+      $('#showShelf').removeClass('active');
+      $('#searchResults').empty();
+      $('#pagination').empty();
+      $('#bookDetails').empty();
+      searchBooks(currentQuery, 1);
+    }
+  });
+
+  // 📚 Toggle Section Buttons
+  $('#showSearch').click(function () {
     $('#searchSection').show();
     $('#bookshelfSection').hide();
     $('#showSearch').addClass('active');
     $('#showShelf').removeClass('active');
+  });
 
-    // Clear previous UI states
-    $('#searchResults').empty();
-    $('#pagination').empty();
-    $('#bookDetails').empty();
-    searchBooks(currentQuery, 1);
+  $('#showShelf').click(function () {
+    $('#searchSection').hide();
+    $('#bookshelfSection').show();
+    $('#showShelf').addClass('active');
+    $('#showSearch').removeClass('active');
+    loadBookshelf();
+  });
+
+  // 🟦 View Mode Toggle Buttons
+  $('#gridView').click(() => updateViewMode(true));
+  $('#listView').click(() => updateViewMode(false));
+
+  // 🔁 Update View (Grid/List)
+  function updateViewMode(grid) {
+    isGridView = grid;
+    $('#gridView').toggleClass('active', grid);
+    $('#listView').toggleClass('active', !grid);
+
+    if ($('#searchSection').is(':visible')) {
+      displayResults(currentSearchResults);
+    }
+    if ($('#bookshelfSection').is(':visible')) {
+      loadBookshelf();
+    }
   }
-});
-  $('#gridView').click(function () {
-  isGridView = true;
-  displayResults(currentSearchResults);
-  loadBookshelf(); 
-});
-  $('#listView').click(function () {
-  isGridView = false;
-  displayResults(currentSearchResults);
-  loadBookshelf(); 
-});
+
+  // 🔍 Fetch books from Google Books API
   function searchBooks(query, page) {
     const startIndex = (page - 1) * maxResults;
     const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&startIndex=${startIndex}&maxResults=${maxResults}`;
@@ -40,9 +65,17 @@ $('#searchBtn').click(function () {
       createPagination(Math.ceil(data.totalItems / maxResults), page);
     });
   }
+
+  // 📄 Display Search Results
   function displayResults(books) {
     const layoutClass = isGridView ? 'grid' : 'list';
     $('#searchResults').removeClass('grid list').addClass(layoutClass).empty();
+
+    if (books.length === 0) {
+      $('#searchResults').html("<p>No books found. Try a different search.</p>");
+      return;
+    }
+
     books.forEach(book => {
       const info = book.volumeInfo;
       const bookId = book.id;
@@ -81,12 +114,12 @@ $('#searchBtn').click(function () {
       const book = currentSearchResults.find(b => b.id === bookId);
       if (book && !bookshelf.some(b => b.id === book.id)) {
         bookshelf.push(book);
-
         loadBookshelf();
-       
       }
     });
   }
+
+  // 🔢 Pagination Controls
   function createPagination(totalPages, currentPage) {
     $('#pagination').empty();
     for (let i = 1; i <= Math.min(totalPages, 5); i++) {
@@ -97,6 +130,8 @@ $('#searchBtn').click(function () {
       $('#pagination').append(button);
     }
   }
+
+  // 📖 Book Detail Panel
   function loadBookDetails(bookId) {
     const url = `https://www.googleapis.com/books/v1/volumes/${bookId}`;
     $.getJSON(url, function (data) {
@@ -124,73 +159,46 @@ $('#searchBtn').click(function () {
     });
   }
 
- function loadBookshelf() {
-  const layoutClass = isGridView ? 'grid' : 'list';
-  $('#bookshelf').removeClass('grid list').addClass(layoutClass).empty();
+  // 📚 Bookshelf Section Renderer
+  function loadBookshelf() {
+    const layoutClass = isGridView ? 'grid' : 'list';
+    $('#bookshelf').removeClass('grid list').addClass(layoutClass).empty();
 
-  bookshelf.forEach(book => {
-    const info = book.volumeInfo;
-    const title = info.title || "No Title";
-    const authors = info.authors ? info.authors.join(", ") : "Unknown Author";
-    const thumbnail = info.imageLinks?.thumbnail || "https://via.placeholder.com/128x200?text=No+Cover";
-    const bookId = book.id;
+    bookshelf.forEach(book => {
+      const info = book.volumeInfo;
+      const title = info.title || "No Title";
+      const authors = info.authors ? info.authors.join(", ") : "Unknown Author";
+      const thumbnail = info.imageLinks?.thumbnail || "https://via.placeholder.com/128x200?text=No+Cover";
+      const bookId = book.id;
 
-    const bookHTML = isGridView
-      ? `
-        <div class="book-item grid-item">
-          <img src="${thumbnail}" alt="${title}" />
-          <p><a href="#" class="book-link" data-id="${bookId}">${title}</a></p>
-        </div>
-      `
-      : `
-        <div class="book-item list-item" style="display: flex; align-items: center; gap: 10px;">
-          <img src="${thumbnail}" alt="${title}" style="width: 80px; height: auto;" />
-          <div>
+      const bookHTML = isGridView
+        ? `
+          <div class="book-item grid-item">
+            <img src="${thumbnail}" alt="${title}" />
             <p><a href="#" class="book-link" data-id="${bookId}">${title}</a></p>
-            <p>${authors}</p>
           </div>
-        </div>
-      `;
+        `
+        : `
+          <div class="book-item list-item" style="display: flex; align-items: center; gap: 10px;">
+            <img src="${thumbnail}" alt="${title}" style="width: 80px; height: auto;" />
+            <div>
+              <p><a href="#" class="book-link" data-id="${bookId}">${title}</a></p>
+              <p>${authors}</p>
+            </div>
+          </div>
+        `;
 
-    $('#bookshelf').append(bookHTML);
-  });
+      $('#bookshelf').append(bookHTML);
+    });
 
-  $('.book-link').click(function (e) {
-    e.preventDefault();
-    const bookId = $(this).data('id');
-    loadBookDetails(bookId);
-  });
-}
+    $('.book-link').click(function (e) {
+      e.preventDefault();
+      const bookId = $(this).data('id');
+      loadBookDetails(bookId);
+    });
+  }
 
+  // 📥 Initial load
   loadBookshelf();
-     $('#showSearch').click(function () {
-  $('#searchSection').show();
-  $('#bookshelfSection').hide();
-  $('#showSearch').addClass('active');
-  $('#showShelf').removeClass('active');
-});
-
-$('#showShelf').click(function () {
-  $('#searchSection').hide();
-  $('#bookshelfSection').show();
-  $('#showShelf').addClass('active');
-  $('#showSearch').removeClass('active');
-  loadBookshelf();
-});
-  $('#gridView').click(function () {
-  isGridView = true;
-  $('#gridView').addClass('active');
-  $('#listView').removeClass('active');
-  displayResults(currentSearchResults);
-  loadBookshelf();
-});
-
-$('#listView').click(function () {
-  isGridView = false;
-  $('#listView').addClass('active');
-  $('#gridView').removeClass('active');
-  displayResults(currentSearchResults);
-  loadBookshelf();
-});
 });
 
