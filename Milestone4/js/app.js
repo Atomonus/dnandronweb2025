@@ -29,9 +29,8 @@ $('#searchBtn').click(function () {
   $('#listView').click(function () {
   isGridView = false;
   displayResults(currentSearchResults);
-  loadBookshelf(); // <-- Add this line
+  loadBookshelf(); 
 });
-
   function searchBooks(query, page) {
     const startIndex = (page - 1) * maxResults;
     const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&startIndex=${startIndex}&maxResults=${maxResults}`;
@@ -44,13 +43,11 @@ $('#searchBtn').click(function () {
   function displayResults(books) {
     const layoutClass = isGridView ? 'grid' : 'list';
     $('#searchResults').removeClass('grid list').addClass(layoutClass).empty();
-
     books.forEach(book => {
       const info = book.volumeInfo;
       const bookId = book.id;
       const title = info.title || "No Title";
       const thumbnail = info.imageLinks?.thumbnail || "https://via.placeholder.com/128x200?text=No+Cover";
-
       const bookHTML = isGridView
         ? `
           <div class="book-item grid-item">
@@ -90,7 +87,6 @@ $('#searchBtn').click(function () {
       }
     });
   }
-
   function createPagination(totalPages, currentPage) {
     $('#pagination').empty();
     for (let i = 1; i <= Math.min(totalPages, 5); i++) {
@@ -101,7 +97,6 @@ $('#searchBtn').click(function () {
       $('#pagination').append(button);
     }
   }
-
   function loadBookDetails(bookId) {
     const url = `https://www.googleapis.com/books/v1/volumes/${bookId}`;
     $.getJSON(url, function (data) {
