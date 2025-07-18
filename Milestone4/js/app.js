@@ -5,10 +5,8 @@ $(document).ready(function () {
   let currentSearchResults = [];
   let bookshelf = [];
   let isGridView = true;
-
 $('#searchBtn').click(function () {
   currentQuery = $('#searchInput').val().trim();
-
   if (currentQuery) {
     // Switch to Search section view
     $('#searchSection').show();
@@ -20,13 +18,9 @@ $('#searchBtn').click(function () {
     $('#searchResults').empty();
     $('#pagination').empty();
     $('#bookDetails').empty();
-
-    // Perform new search
     searchBooks(currentQuery, 1);
   }
 });
-
-
   $('#gridView').click(function () {
   isGridView = true;
   displayResults(currentSearchResults);
@@ -47,7 +41,6 @@ $('#searchBtn').click(function () {
       createPagination(Math.ceil(data.totalItems / maxResults), page);
     });
   }
-
   function displayResults(books) {
     const layoutClass = isGridView ? 'grid' : 'list';
     $('#searchResults').removeClass('grid list').addClass(layoutClass).empty();
