@@ -90,13 +90,14 @@ $(document).ready(function () {
           </div>
         `
         : `
-          <div class="book-item list-item" style="display: flex; align-items: center; gap: 10px;">
-            <img src="${thumbnail}" alt="${title}" style="width: 80px; height: auto;" />
-            <div>
-              <p><a href="#" class="book-link" data-id="${bookId}">${title}</a></p>
-              <button class="saveBtn" data-id="${bookId}">Save to Bookshelf</button>
-            </div>
-          </div>
+  <div class="book-item list-item" style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+    <img src="${thumbnail}" alt="${title}" style="width: 80px; height: auto;" />
+    <div>
+      <p><strong><a href="#" class="book-link" data-id="${bookId}">${title}</a></strong></p>
+      <p>${info.authors ? info.authors.join(", ") : "Unknown Author"}</p>
+      <button class="saveBtn" data-id="${bookId}">Save to Bookshelf</button>
+    </div>
+  </div>
         `;
 
       $('#searchResults').append(bookHTML);
