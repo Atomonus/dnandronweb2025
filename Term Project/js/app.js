@@ -21,7 +21,7 @@ $(document).ready(function () {
             : "https://via.placeholder.com/200x300?text=No+Image";
 
           const movieCard = `
-            <div class="movie-card">
+            <div class="movie-card" data-id="${movie.id}">
               <img src="${poster}" alt="${movie.title}" class="movie-poster" />
               <h3>${movie.title}</h3>
               <p>Release: ${movie.release_date || "N/A"}</p>
@@ -33,8 +33,45 @@ $(document).ready(function () {
       } else {
         $('#results').html("<p>No movies found.</p>");
       }
-    }).fail(() => {
-      $('#results').html("<p>Failed to load data. Please try again later.</p>");
     });
   }
+
+  // 🔍 Click to get details
+  $('#results').on('click', '.movie-card', function () {
+    const movieId = $(this).data('id');
+    const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`;
+
+    $.getJSON(url, function (movie) {
+      const poster = movie.poster_path
+        ? `${imageBase}${movie.poster_path}`
+        : "https://via.placeholder.com/200x300?text=No+Image";
+
+      const genres = movie.genres.map(g => g.name).join(", ");
+
+      const html = `
+        <h2>${movie.title}</h2>
+        <img src="${poster}" class="movie-poster" style="width:150px;" />
+        <p><strong>Release Date:</strong> ${movie.release_date}</p>
+        <p><strong>Rating:</strong> ${movie.vote_average}</p>
+        <p><strong>Genres:</strong> ${genres}</p>
+        <p><strong>Overview:</strong> ${movie.overview}</p>
+      `;
+
+      $('#movieDetails').html(html);
+      $('#movieModal').fadeIn();
+    });
+  });
+
+  // ❌ Close modal
+  $('.close').click(function () {
+    $('#movieModal').fadeOut();
+  });
+
+  // Close modal on background click
+  $('#movieModal').click(function (e) {
+    if (e.target === this) {
+      $(this).fadeOut();
+    }
+  });
 });
+
