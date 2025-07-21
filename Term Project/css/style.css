@@ -93,4 +93,16 @@
        font-size: 24px;
        cursor: pointer;
       }
+     .list-view .movie-card {
+       width: 90%;
+       display: flex;
+       align-items: center;
+       text-align: left;
+       gap: 20px;
+      padding: 10px;
+     }
 
+    .list-view .movie-poster {
+     width: 100px;
+     height: auto;
+   }
