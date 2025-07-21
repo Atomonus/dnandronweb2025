@@ -38,6 +38,39 @@ function loadPopularMovies() {
     }
   });
 
+  $('#genreBtn').click(function () {
+  const genreId = $('#genreSelect').val();
+  if (genreId) {
+    discoverByGenre(genreId);
+  }
+});
+
+function discoverByGenre(genreId) {
+  $('#results').empty();
+  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreId}`;
+
+  $.getJSON(url, function (data) {
+    if (data.results.length > 0) {
+      data.results.forEach(movie => {
+        const poster = movie.poster_path
+          ? `${imageBase}${movie.poster_path}`
+          : "https://via.placeholder.com/200x300?text=No+Image";
+
+        const movieCard = `
+          <div class="movie-card" data-id="${movie.id}">
+            <img src="${poster}" alt="${movie.title}" class="movie-poster" />
+            <h3>${movie.title}</h3>
+            <p>Release: ${movie.release_date || "N/A"}</p>
+          </div>
+        `;
+        $('#results').append(movieCard);
+      });
+    } else {
+      $('#results').html("<p>No movies found in this genre.</p>");
+    }
+  });
+}
+
   function searchMovies(query) {
     $('#results').empty();
     const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
