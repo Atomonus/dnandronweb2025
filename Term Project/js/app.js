@@ -64,8 +64,6 @@ function loadPopularMovies() {
       }
     });
   }
-
-  // 🔍 Click to get details
   $('#results').on('click', '.movie-card', function () {
     const movieId = $(this).data('id');
     const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`;
@@ -90,13 +88,11 @@ function loadPopularMovies() {
       $('#movieModal').fadeIn();
     });
   });
-
-  // ❌ Close modal
+  
   $('.close').click(function () {
     $('#movieModal').fadeOut();
   });
 
-  // Close modal on background click
   $('#movieModal').click(function (e) {
     if (e.target === this) {
       $(this).fadeOut();
