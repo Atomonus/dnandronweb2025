@@ -3,6 +3,14 @@ $(document).ready(function () {
   const imageBase = "https://image.tmdb.org/t/p/w500";
   loadPopularMovies();
 
+  $('#gridViewBtn').click(function () {
+  $('#results').removeClass('list-view').addClass('grid-view');
+});
+
+$('#listViewBtn').click(function () {
+  $('#results').removeClass('grid-view').addClass('list-view');
+});
+
 function loadPopularMovies() {
   $('#results').empty();
   const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`;
