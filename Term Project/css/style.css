@@ -1,4 +1,4 @@
- body {
+body {
         font-family: Arial, sans-serif;
         background-color: lightblue;
         margin: 20px;
@@ -28,3 +28,39 @@
         margin-bottom: 15px;
         border: 1px solid #ccc;
       }
+      .grid-view {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+
+      .movie-card {
+       width: 200px;
+       background-color: #fff;
+       border: 1px solid #ccc;
+       padding: 10px;
+       border-radius: 8px;
+       text-align: center;
+       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      }
+
+      .movie-poster {
+        width: 100%;
+        border-radius: 5px;
+      }
+
+      .movie-card h3 {
+        margin: 10px 0 5px;
+        font-size: 1rem;
+      }
+      @media (max-width: 600px) {
+       .movie-card {
+       width: 100%;
+     }
+     }
+     .movie-card:hover {
+       transform: scale(1.03);
+       transition: transform 0.2s ease;
+      }
+
